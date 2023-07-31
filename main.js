@@ -7,33 +7,34 @@
   const mainSlide = document.getElementById('main_slide')
   const pElement = document.querySelector('p')
   
-  const touchThumbnail = (element, color) =>{
+  const touchThumbnail = (element) =>{
     element.addEventListener('click',() => {
-      mainSlide.className = color
+      mainSlide.className = element.className
+      mainSlide.classList.remove('thumbnails')
       pElement.textContent = element.textContent
     })
   }
-  touchThumbnail(leftThumbnailElement,'blue')
-  touchThumbnail(centerThumbnailElement,'green')
-  touchThumbnail(rightThumbnailElement,'pink')
+  touchThumbnail(leftThumbnailElement)
+  touchThumbnail(centerThumbnailElement)
+  touchThumbnail(rightThumbnailElement)
   
   
   //ボタンを押した時の切り替え
   const leftButtonElement = document.getElementById('left_button')
   const rightButtonElement = document.getElementById('right_button')
 
-  rightButtonElement.addEventListener('click', () => {
-    if(mainSlide.classList.contains('blue')){
-      mainSlide.className = 'green'
-      pElement.textContent = centerThumbnailElement.textContent
-    }else if(mainSlide.classList.contains('green')){
-      mainSlide.className = 'pink'
-      pElement.textContent = rightThumbnailElement.textContent
-    }else if(mainSlide.classList.contains('pink')){
-      mainSlide.className = 'blue'
-      pElement.textContent = leftThumbnailElement.textContent
-    }
-  })
+  // rightButtonElement.addEventListener('click', () => {
+  //   if(mainSlide.classList.contains('blue')){
+  //     mainSlide.className = 'green'
+  //     pElement.textContent = centerThumbnailElement.textContent
+  //   }else if(mainSlide.classList.contains('green')){
+  //     mainSlide.className = 'pink'
+  //     pElement.textContent = rightThumbnailElement.textContent
+  //   }else if(mainSlide.classList.contains('pink')){
+  //     mainSlide.className = 'blue'
+  //     pElement.textContent = leftThumbnailElement.textContent
+  //   }
+  // })
 
   leftButtonElement.addEventListener('click',() => {
     if(mainSlide.classList.contains('blue')){
@@ -47,4 +48,26 @@
       pElement.textContent = centerThumbnailElement.textContent
     }
   })
-  }
+
+  
+  
+  const clickRightButton = () => {
+    rightButtonElement.addEventListener('click',()=>{
+      const thumbnails = [leftThumbnailElement,centerThumbnailElement,rightThumbnailElement]
+      for(let i = 0; i<thumbnails.length; i++){
+        mainSlide.className = thumbnails[i].className
+        console.log(mainSlide.className)
+        mainSlide.classList.remove('thumbnails')
+        pElement.textContent = thumbnails[i].textContent
+        if(i > 2){
+          mainSlide.className = thumbnails[0].className
+          console.log(mainSlide.className)
+          mainSlide.classList.remove('thumbnails')
+          pElement.textContent = thumbnails[0].textContent
+        }
+      }
+    }
+  )}
+
+  clickRightButton()
+}
