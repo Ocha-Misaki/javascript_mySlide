@@ -22,52 +22,31 @@
   //ボタンを押した時の切り替え
   const leftButtonElement = document.getElementById('left_button')
   const rightButtonElement = document.getElementById('right_button')
+  const thumbnails = [leftThumbnailElement,centerThumbnailElement,rightThumbnailElement]
+  const colors = ['blue', 'green', 'pink']
+  let ThumbnailIndex;
 
-  // rightButtonElement.addEventListener('click', () => {
-  //   if(mainSlide.classList.contains('blue')){
-  //     mainSlide.className = 'green'
-  //     pElement.textContent = centerThumbnailElement.textContent
-  //   }else if(mainSlide.classList.contains('green')){
-  //     mainSlide.className = 'pink'
-  //     pElement.textContent = rightThumbnailElement.textContent
-  //   }else if(mainSlide.classList.contains('pink')){
-  //     mainSlide.className = 'blue'
-  //     pElement.textContent = leftThumbnailElement.textContent
-  //   }
-  // })
-
-  leftButtonElement.addEventListener('click',() => {
-    if(mainSlide.classList.contains('blue')){
-      mainSlide.className = 'pink'
-      pElement.textContent = rightThumbnailElement.textContent
-    }else if(mainSlide.classList.contains('green')){
-      mainSlide.className = 'blue'
-      pElement.textContent = leftThumbnailElement.textContent
-    }else if(mainSlide.classList.contains('pink')){
-      mainSlide.className = 'green'
-      pElement.textContent = centerThumbnailElement.textContent
+  rightButtonElement.addEventListener('click',()=>{
+    ThumbnailIndex = colors.indexOf(mainSlide.className)
+    ThumbnailIndex++
+    if(ThumbnailIndex > 2){
+      mainSlide.className = colors[0]
+      pElement.textContent = thumbnails[0].textContent
+    }
+    else{mainSlide.className = colors[ThumbnailIndex]
+    pElement.textContent = thumbnails[ThumbnailIndex].textContent
     }
   })
 
-  
-  
-  const clickRightButton = () => {
-    rightButtonElement.addEventListener('click',()=>{
-      const thumbnails = [leftThumbnailElement,centerThumbnailElement,rightThumbnailElement]
-      for(let i = 0; i<thumbnails.length; i++){
-        mainSlide.className = thumbnails[i].className
-        console.log(mainSlide.className)
-        mainSlide.classList.remove('thumbnails')
-        pElement.textContent = thumbnails[i].textContent
-        if(i > 2){
-          mainSlide.className = thumbnails[0].className
-          console.log(mainSlide.className)
-          mainSlide.classList.remove('thumbnails')
-          pElement.textContent = thumbnails[0].textContent
-        }
-      }
+  leftButtonElement.addEventListener('click',() => {
+    ThumbnailIndex = colors.indexOf(mainSlide.className)
+    ThumbnailIndex--
+    if(ThumbnailIndex < 0){
+      mainSlide.className = colors[2]
+      pElement.textContent = thumbnails[2].textContent
+    }else{mainSlide.className = colors[ThumbnailIndex]
+    pElement.textContent = thumbnails[ThumbnailIndex].textContent
     }
-  )}
-
-  clickRightButton()
+  })
+  
 }
